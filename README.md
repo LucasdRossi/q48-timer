@@ -4,7 +4,7 @@
 
 # :tv: Demo
 
-You can see a live demo [here](https://q48.herokuapp.com/)
+You can see a live demo <a href="https://q48.herokuapp.com/" target="_blank">here</a>
 
 # :information_source: How Q48 works
 
