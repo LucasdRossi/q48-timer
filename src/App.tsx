@@ -5,6 +5,7 @@ import "./App.css";
 const App: React.FC = () => {
   const [totalTime, setTotalTime] = useState(0);
   const [passedTime, setPassedTime] = useState(0);
+  const [isPaused, setIsPaused] = useState(true);
 
   const { play } = useContext(AudioContext);
 
@@ -49,16 +50,19 @@ const App: React.FC = () => {
     }, 1000);
 
     intervalRef.current.interval = interval;
+    setIsPaused(false);
   };
 
   const stop = () => {
     if (intervalRef.current.interval) {
       clearInterval(intervalRef.current.interval);
     }
+    setIsPaused(true);
   };
 
   const reset = () => {
     stop();
+    setIsPaused(true);
     setPassedTime(0);
     setTotalTime(0);
   };
@@ -67,19 +71,16 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <p className="App-title">{totalTime}</p>
-        <div className="App-content">
+        {isPaused ? (
           <a className="App-link link-primary" onClick={start}>
             Start
           </a>
-          <a
-            className={
-              totalTime > 0 ? "App-link link-danger" : "App-link link-disabled"
-            }
-            onClick={stop}
-          >
+        ) : (
+          <a className={"App-link link-danger"} onClick={stop}>
             Stop
           </a>
-        </div>
+        )}
+
         <a className="App-link" onClick={reset}>
           Reset
         </a>
